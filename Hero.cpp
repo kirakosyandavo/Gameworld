@@ -5,9 +5,35 @@ Hero::Hero(string name,Herotype herotype):Character(name,100,25,10){
     m_XP=0;  
 }
 void Hero::addItem(Item*inventory){
-   m_inventory.push_back(inventory);
+  m_inventory.push_back(inventory);
 }
-
+  void Hero::useItem(int index) {
+    if (index >= 0 && index < m_inventory.size()) {
+        m_inventory[index]->use_Item(this);  
+    }
+        std::cout << "Invalid item index.\n";
+    }
+    void Hero::gainXP(int xp){
+      cout<<"your hero gained "<<xp<<"xp"<<endl;
+      m_XP+=xp;
+      if(m_XP>xptolevelup){
+        levelup();
+      }
+    }
+    int Hero::getlevel(){
+      return m_level;
+    }
+    void Hero::levelup(){
+         while(m_XP>=xptolevelup){
+          m_XP-=xptolevelup;
+          m_level++;
+          m_health+=25;
+          m_defense+=15;
+          m_attackPower+=25;
+          cout<<"your level is up"<<m_level<<endl;
+         }
+    }
+  
 void Hero::displayStats()const{
     cout<<"Hero:"<<m_name<<endl;
     cout<<"your hero is:";print_herotype(m_herotype);cout<<endl;

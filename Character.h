@@ -24,6 +24,5 @@ class Character{
   virtual void improve_defense(int value){
     m_defense+=value;
   }
-  virtual ~Character()=default;
 };
 #endif 

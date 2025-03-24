@@ -30,6 +30,7 @@ class Hero:public Character,public Combatable,public Interactable{
     int m_level;
     int m_XP;
     Herotype m_herotype;
+    const int xptolevelup=100;
     public:
     Hero(string name,Herotype herotype);
     void addItem(Item*inventory);
@@ -39,8 +40,11 @@ class Hero:public Character,public Combatable,public Interactable{
     void useAbility(Character*target)override;
     void interact(Character*target)override;
     string getDialogue()const override;
+    void useItem(int index);
+    void gainXP(int xp);
+    void levelup();
+    int getlevel();
     ~Hero();
-    void useItem(Character*character); 
 
 };
 #endif
