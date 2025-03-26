@@ -13,6 +13,9 @@ class Character{
   Character(string name,int health,int attackPower,int defense):m_name(name),m_health(health),m_attackPower(attackPower),m_defense(defense){}
   void virtual displayStats()const=0;
   void virtual takeDamage(int damage)=0;
+  int get_helth()const{
+    return m_health;
+  }
 
   virtual ~Character()=default;
   string get_name(){

@@ -41,6 +41,7 @@ class Hero:public Character,public Combatable,public Interactable{
     void interact(Character*target)override;
     string getDialogue()const override;
     void useItem(int index);
+    void printItem()const;
     void gainXP(int xp);
     void levelup();
     int getlevel();

@@ -9,7 +9,11 @@ void Hero::addItem(Item*inventory){
 }
   void Hero::useItem(int index) {
     if (index >= 0 && index < m_inventory.size()) {
-        m_inventory[index]->use_Item(this);  
+      cout<<"you use"<<m_inventory[index]->getName()<<endl;
+        m_inventory[index]->use_Item(this); 
+        delete[]m_inventory[index];
+        m_inventory.erase(m_inventory.begin()+index);
+        cout<<"your item was used"<<endl; 
     }
         std::cout << "Invalid item index.\n";
     }
@@ -82,6 +86,13 @@ void Hero::displayStats()const{
     }
     string Hero::getDialogue()const {
       return "Hello i am hero";
+    }
+    void Hero::printItem()const{
+      for(int i=0;i<m_inventory.size();i++){
+        cout<<m_inventory[i]->getName()<<endl;
+      }
+
+
     }
     Hero::~Hero(){
      for(int i=0;i<m_inventory.size();i++){
