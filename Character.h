@@ -10,6 +10,8 @@ class Character{
   int m_attackPower;
   int m_defense;
   public:
+  virtual void interact(Character*target){};
+  virtual  string getDialogue()const{}
   Character(string name,int health,int attackPower,int defense):m_name(name),m_health(health),m_attackPower(attackPower),m_defense(defense){}
   void virtual displayStats()const=0;
   void virtual takeDamage(int damage)=0;

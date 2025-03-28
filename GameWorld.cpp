@@ -50,8 +50,11 @@ void GameWorld::meetcharacter(Hero* hero,Location* location){
     Character*encounter=location->get_entities()[0];
    if(dynamic_cast<NPC*>(encounter)){
     NPC*npc=dynamic_cast<NPC*>(encounter);
-    cout<<"you meet a villager"<<endl;
-    cout<<npc->getDialogue()<<endl;
+    npc->get_dialogue(hero);
+    cout<<"after a long walk you meet a it"<<endl;
+    Monster* monster=new Monster("shreik",Monstertype::Goblin);
+    cout<<"the battle start"<<endl;
+    battle(hero,monster);
     
    }
    if(dynamic_cast<Monster*>(encounter)){
@@ -60,4 +63,25 @@ void GameWorld::meetcharacter(Hero* hero,Location* location){
     cout<<"prepare for battle"<<endl;
      battle(hero,monst);
    }  
+}
+void GameWorld::addlocation(Location*location){
+    locations.push_back(location);
+}
+void GameWorld::setCurrentLocation(Location* location) {
+    currentLocation = location;
+    std::cout << "Current location set to: " << location->get_Location_name() << endl;
+}
+void GameWorld::moveToLocation() {
+    cout<<"which location you want to move"<<endl;
+    for(int i=0;i<locations.size();i++){
+        cout<<locations[i]->get_Location_name()<<endl;
+    }
+        int n;
+        cin>>n;
+    if ( n>= 0 && n < locations.size()) {
+        currentLocation = locations[n];
+        std::cout << "Moved to location: " << currentLocation->get_Location_name() <<endl;
+    } else {
+        std::cout << "Invalid location index!" << endl;
+    }
 }

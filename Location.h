@@ -21,7 +21,10 @@ class Location{
     }
    vector<Character*> get_entities(){
     return entities;
-   }  
+   } 
+   void add_character(Character* p){
+    entities.push_back(p);
+   } 
 private:
 string m_name;
 vector<Character*>entities;

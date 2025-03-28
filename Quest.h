@@ -3,7 +3,7 @@
 #include"Hero.h"
 class Quest{
     public:
- Quest(string& description,int xp){
+ Quest(string description,int xp){
     m_description=description;
     completed=false;
     m_xp=xp;
