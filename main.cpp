@@ -1,11 +1,11 @@
 #include <iostream>
-#include "GameWorld.h"
 #include "Hero.h"
 #include "Monster.h"
 #include "Sword.h"
 #include "HealthPotion.h"
 #include "QuestManager.h"
 #include "Location.h"
+#include"GameWorld.h"
 
 using namespace std;
 
@@ -16,6 +16,7 @@ int main() {
     cin>>name;
     Herotype herotype;
     do{
+    cout << "\033[2J\033[H";     
     cout<<"select the type you want"<<endl;
     cout<<"1.Warrior"<<"  "<<"2.Mage"<<"  "<<"3.Rogue "<<endl;
     int n;
@@ -33,6 +34,7 @@ int main() {
     }
     break;
 }while(true);
+     cout << "\033[2J\033[H"; 
      cout<<"you created your hero"<<endl;
      Hero hero(name,herotype);
     GameWorld game;
@@ -43,7 +45,7 @@ int main() {
     game.addlocation(forest);
     game.addlocation(castle);
     Sword* sword = new Sword("Tur Kecaki", 15);
-    HealthPotion* potion = new HealthPotion("potiion",20);
+    HealthPotion* potion = new HealthPotion("potion",20);
     Magic_Amulet* amulet=new Magic_Amulet("amulet",12);
     hero.addItem(sword);
     hero.addItem(potion);
@@ -65,70 +67,75 @@ int main() {
      questManager.add_quest(new Quest("Defeat the Goblin in the Dark Forest",10));
      questManager.add_quest(new Quest("Slay the Dragon in the Ancient Castle",10));
      questManager.add_quest(new Quest("kill the troll",15));
-     NPC* wiseOldMan=new NPC("Wise old man",&questManager);    
-
-    // Quest system setup
-    QuestManager questManager;
-    questManager.addQuest("Defeat the Goblin in the Dark Forest");
-    
-    // Game loop
-    bool gameRunning = true;
-    while (gameRunning) {
-        cout << "\nCurrent Location: " << hero->getLocation()->getName() << endl;
+     NPC* wiseOldMan=new NPC("Wise old man",&questManager); 
+     (game.get_location())[0]->add_character(wiseOldMan);
+     NPC*villageElder=new NPC("village elder",&questManager);   
+      (game.get_location())[1]->add_character(villageElder);
+     NPC* castleGuard=new NPC("Castle Guard",&questManager);
+     (game.get_location())[2]->add_character(castleGuard);
+     while (true) {
+        cout << "Choose your starting location:\n1. Village\n2. Dark Forest\n3. Ancient Castle\nEnter choice: ";
+        int startlocation;
+        cin >> startlocation;
+        if (startlocation== 1) { 
+            game.setCurrentLocation(village);
+            break;
+        }
+        if (startlocation == 2) {
+             game.setCurrentLocation(forest);
+             break;
+             }
+        if (startlocation == 3) {
+             game.setCurrentLocation(castle);
+             break;
+             }
+        cout << "Invalid location. Try again.\n";
+    }
+    bool flag=true;
+    cout << "\033[2J\033[H"; 
+    cout <<"your game started"<<endl;
+    while(flag){
+      cout<<"your current location is ";
+      game.print_location();
         cout << "1. Move to another location" << endl;
-        cout << "2. Attack enemy" << endl;
-        cout << "3. Use an item" << endl;
-        cout << "4. Check quests" << endl;
-        cout << "5. Quit Game" << endl;
+        cout << "2. Use an item" << endl;
+        cout << "3. Meet a character" << endl;
+        cout << "4. Quit Game" << endl;
         
         int choice;
         cin >> choice;
-        
+        cout << "\033[2J\033[H"; 
         switch (choice) {
             case 1: {
-                cout << "Choose a location: 1. Village 2. Dark Forest" << endl;
-                int locChoice;
-                cin >> locChoice;
-                if (locChoice == 1) hero->setLocation(village);
-                else if (locChoice == 2) hero->setLocation(forest);
+                cout << "Choose a location: 1. Village 2. Dark Forest 3.ancient castle" << endl;
+                int n;
+                cin >> n;
+                cout << "\033[2J\033[H"; 
+                if (n== 1) game.setCurrentLocation(village);
+                if (n == 2) game.setCurrentLocation(forest);
+                if(n==3) game.setCurrentLocation(castle);
                 break;
             }
-            case 2:
-                if (hero->getLocation() == monster->getLocation()) {
-                    hero->attack(monster);
-                    if (monster->isDefeated()) {
-                        cout << monster->getName() << " is defeated!" << endl;
-                        questManager.completeQuest("Defeat the Goblin in the Dark Forest");
-                        cout << "Quest completed!" << endl;
-                    } else {
-                        monster->attack(hero);
-                    }
-                } else {
-                    cout << "No enemies here!" << endl;
-                }
-                break;
-            case 3:
-                cout << "Hero uses a potion!" << endl;
-                potion->use_Item(hero);
-                break;
-            case 4:
-                questManager.displayQuests();
-                break;
-            case 5:
-                gameRunning = false;
-                break;
-            default:
-                cout << "Invalid choice. Try again." << endl;
+            case 2:{
+            if(hero.valid_item()){
+                hero.useItem();
         }
-    }
-    
-    // Clean up
-    delete hero;
-    delete monster;
-    delete sword;
-    delete potion;
-    delete village;
-    delete forest;
-    
-    return 0;
+        else{ cout<<"you dont have item"<<endl;
+            
+        }
+        break;
+
+        }
+        case 3:{
+         game.meetcharacter(&hero,game.get_currentLocation());
+         break;
+        }
+        case 4:{
+            exit(0);
+            break;
+        }
+    }  
 }
+    return 0;
+    }
+  

@@ -1,5 +1,5 @@
 #include"Hero.h"
-Hero::Hero(string name,Herotype herotype):Character(name,100,25,10){
+Hero::Hero(string name,Herotype herotype):Character(name,100,25,15){
     m_herotype=herotype;
     m_level=1;
     m_XP=0;  
@@ -7,15 +7,20 @@ Hero::Hero(string name,Herotype herotype):Character(name,100,25,10){
 void Hero::addItem(Item*inventory){
   m_inventory.push_back(inventory);
 }
-  void Hero::useItem(int index) {
-    if (index >= 0 && index < m_inventory.size()) {
-      cout<<"you use"<<m_inventory[index]->getName()<<endl;
-        m_inventory[index]->use_Item(this); 
-        delete[]m_inventory[index];
-        m_inventory.erase(m_inventory.begin()+index);
+  void Hero::useItem() {
+    cout<<"which item you want to use"<<endl;
+    printItem();
+    int index;
+    cin>>index;
+    if (index >= 1 && index < m_inventory.size()+1) {
+      cout<<"you use "<<m_inventory[index-1]->getName()<<endl;
+        m_inventory[index-1]->use_Item(this); 
+        delete m_inventory[index-1];
+        m_inventory.erase(m_inventory.begin()+index-1);
         cout<<"your item was used"<<endl; 
-    }
+    }else{
         std::cout << "Invalid item index.\n";
+    }
     }
     void Hero::gainXP(int xp){
       cout<<"your hero gained "<<xp<<"xp"<<endl;
@@ -40,7 +45,7 @@ void Hero::addItem(Item*inventory){
   
 void Hero::displayStats()const{
     cout<<"Hero:"<<m_name<<endl;
-    cout<<"your hero is:";print_herotype(m_herotype);cout<<endl;
+    cout<<"your hero is:";print_herotype();cout<<endl;
     cout<<"health:"<<m_health<<endl;
     cout<<"attackPower:"<<m_attackPower<<endl;
     cout<<"defense:"<<m_defense<<endl;
@@ -52,16 +57,17 @@ void Hero::displayStats()const{
     if(damage>0){
         m_health-=damage;
           if(m_health<0){
-            cout<<"your hero is dead";
+            cout<<"your hero is dead ";
           }
     }   
  }
+
     void Hero::attack(Character* target){
         if(target==nullptr){
             return;
         }
         target->takeDamage(m_attackPower);
-        cout<<"Your hero attack on"<<target->get_name()<<"in attackpower:"<<m_attackPower<<endl;     
+        cout<<"Your hero attack on "<<target->get_name()<<" in attackpower:"<<m_attackPower<<endl;     
     }
     void Hero::useAbility(Character*target){
       if(target==nullptr){
@@ -88,15 +94,30 @@ void Hero::displayStats()const{
       return "Hello i am hero";
     }
     void Hero::printItem()const{
+      int n=1;
       for(int i=0;i<m_inventory.size();i++){
-        cout<<m_inventory[i]->getName()<<endl;
+        cout<<n<<"."<<m_inventory[i]->getName()<<endl;
+        n++;
       }
-
-
     }
+    void Hero::print_herotype()const{
+      if(m_herotype==Herotype::Warrior){
+          cout<<"Warrior"<<endl;
+      }
+     if(m_herotype==Herotype::Mage){
+      cout<<"Mag"<<endl;
+     } 
+     if(m_herotype==Herotype::Rogue){
+      cout<<"Rogue"<<endl;
+     }  
+  } 
     Hero::~Hero(){
      for(int i=0;i<m_inventory.size();i++){
       delete []m_inventory[i];
      }
      m_inventory.clear();
     }
+    
+
+   
+   

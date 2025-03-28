@@ -16,10 +16,7 @@ void QuestManager::complete_quest(Hero* hero,Quest* quest){
         }
     }
 }
-void QuestManager::assign_quest(Hero* hero,Quest* quest){
-    cout<<hero->get_name()<<"assign"<<quest->get_description()<<endl;
 
-}
 bool QuestManager::checkQuestCompletion(Quest*quest){
     return quest->iscompleted();
 }

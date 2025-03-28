@@ -14,8 +14,11 @@ class NPC:public Character,public Interactable{
        cout<<"im a villager can you help me"<<endl;
        cout<<"i have quest for you"<<endl;
        Quest*quest=m_questmanager->get_Quest();
-       quest->get_description();
-       m_questmanager->assign_quest(hero,quest);
+       cout<<quest->get_description()<<endl;
+    }
+     void interact(Character*target){}
+    virtual  string getDialogue()const{
+      return "";
     }
  private:
  string m_name;

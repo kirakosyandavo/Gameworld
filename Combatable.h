@@ -1,3 +1,5 @@
+#ifndef COMBATABLE
+#define  COMBATABLE
 #include"Character.h"
 class Combatable{
  virtual void attack(Character* target)=0;
@@ -5,3 +7,4 @@ class Combatable{
 
 
 };
+#endif

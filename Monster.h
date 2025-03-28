@@ -7,19 +7,7 @@ enum class Monstertype{
     Troll,
     Dragon
 
-};
-void print_monstertype(Monstertype monstertype){
-    if(monstertype==Monstertype::Goblin){
-        cout<<"Giblin"<<endl;
-    }
-   if(monstertype==Monstertype::Troll){
-    cout<<"Troll"<<endl;
-   } 
-   if(monstertype==Monstertype::Dragon){
-    cout<<"Dragon"<<endl;
-   }  
-} 
-   
+};   
 class Monster:public Character,public Combatable{
   public:
   Monster(string name,Monstertype type);
@@ -27,7 +15,7 @@ class Monster:public Character,public Combatable{
   void  takeDamage(int damage)override;
   void attack(Character* target)override;
   void useAbility(Character*target)override;
-   
+  void print_monstertype()const; 
 private:
 Monstertype m_type;
 

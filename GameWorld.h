@@ -8,7 +8,7 @@
 #include<memory>
 class GameWorld{
 public:
-GameWorld();
+GameWorld()=default;
 void start(){
     cout<<"you start the game"<<endl;
     cout<<"what you want to do"<<endl;
@@ -16,6 +16,9 @@ void start(){
 
 }
 void addlocation(Location*location);
+void print_location(){
+    cout<<currentLocation->get_Location_name()<<endl;
+}
 void setCurrentLocation(Location* location);
 void moveToLocation();
 void meetcharacter(Hero* hero,Location* location ); 
@@ -23,6 +26,9 @@ void battle(Hero* hero,Monster* monster);
 vector<Location*> get_location(){
     return locations;
 }
+Location* get_currentLocation(){
+    return currentLocation;
+}   
 private:
 Location* currentLocation;
 vector<Location*>locations;
