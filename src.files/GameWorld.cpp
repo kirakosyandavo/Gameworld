@@ -16,7 +16,12 @@ void GameWorld::battle(Hero* hero,Monster* monster){
      hero->useAbility(monster);
      break;
      case 3:
-      hero->useItem();
+     if(hero->valid_item()){
+        hero->useItem();
+     }
+     else {
+        cout<<"you dont have item "<<endl;
+     }
       break;
       default:
       cout<<"invalid choice"<<endl;
@@ -103,6 +108,7 @@ void GameWorld::start(){
     cout<<"1.Warrior"<<"  "<<"2.Mage"<<"  "<<"3.Rogue "<<endl;
     int n;
     cin>>n;
+    
     switch(n){
      case 1: herotype=Herotype::Warrior;
      break;
