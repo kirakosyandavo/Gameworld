@@ -9,12 +9,7 @@
 class GameWorld{
 public:
 GameWorld()=default;
-void start(){
-    cout<<"you start the game"<<endl;
-    cout<<"what you want to do"<<endl;
-
-
-}
+void start();
 void addlocation(Location*location);
 void print_location(){
     cout<<currentLocation->get_Location_name()<<endl;

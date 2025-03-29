@@ -25,7 +25,7 @@ void Hero::addItem(Item*inventory){
     void Hero::gainXP(int xp){
       cout<<"your hero gained "<<xp<<"xp"<<endl;
       m_XP+=xp;
-      if(m_XP>xptolevelup){
+      if(m_XP>=xptolevelup){
         levelup();
       }
     }
@@ -40,6 +40,7 @@ void Hero::addItem(Item*inventory){
           m_defense+=15;
           m_attackPower+=25;
           cout<<"your level is up"<<m_level<<endl;
+          cout<<endl;
          }
     }
   
