@@ -19,7 +19,7 @@ class Location{
      string get_Location_name()const{
         return m_name;
     }
-   vector<Character*>& get_entities(){
+   const vector<Character*>& get_entities()const{
     return entities;
    } 
    void add_character(Character* p){

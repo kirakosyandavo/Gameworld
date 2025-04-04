@@ -18,15 +18,14 @@ OBJ = $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 TARGET = GameWorld
 
 # Create object directory if it doesn't exist
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+
 
 # Rule to create the executable
 $(TARGET): $(OBJ)
 	$(CXX) $(OBJ) -o $(TARGET)
 
 # Rule to compile source files into object files
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp 
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Clean up object files and executable

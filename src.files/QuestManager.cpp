@@ -13,6 +13,7 @@ void QuestManager::complete_quest(Hero* hero,Quest* quest){
         if(completedQuests[i]==quest){
             activeQuests.erase(activeQuests.begin()+i);
             completedQuests.push_back(quest);
+            break;
         }
     }
 }
@@ -37,7 +38,7 @@ Quest* QuestManager::get_Quest(){
 
 void QuestManager::displayCompletedQuests()const{
     for(int i=0;i<completedQuests.size();i++){
-        cout<<activeQuests[i]->get_description()<<endl;
+        cout<<completedQuests[i]->get_description()<<endl;
     }
 }
 QuestManager::~QuestManager(){
@@ -46,7 +47,7 @@ QuestManager::~QuestManager(){
     }
     activeQuests.clear();
     for(int i=0;i<completedQuests.size();i++){
-         delete activeQuests[i];
+         delete completedQuests[i];
     }
     completedQuests.clear();
 }

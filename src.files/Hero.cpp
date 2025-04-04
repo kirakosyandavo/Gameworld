@@ -114,7 +114,7 @@ void Hero::displayStats()const{
   } 
     Hero::~Hero(){
      for(int i=0;i<m_inventory.size();i++){
-      delete []m_inventory[i];
+      delete m_inventory[i];
      }
      m_inventory.clear();
     }
